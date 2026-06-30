@@ -1,0 +1,21 @@
+<div class="callback-container">
+  @if (error) {
+    <div class="error">{{ error }}</div>
+  }
+
+  @if (userInfo) {
+    <div class="profile">
+      @if (userInfo.picture) {
+        <img [src]="userInfo.picture" alt="Profile" />
+      }
+      <h2>Welcome, {{ userInfo.name }}</h2>
+      <p>Email: {{ userInfo.email }}</p>
+      <p>LinkedIn ID: {{ userInfo.sub }}</p>
+    </div>
+  }
+
+  @if (!userInfo && !error) {
+    <p>Authenticating with LinkedIn...</p>
+    <div class="spinner"></div>
+  }
+</div>
