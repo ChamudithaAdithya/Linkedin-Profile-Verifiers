@@ -21,6 +21,21 @@
   color: red;
 }
 
+.dashboard-link {
+  display: inline-block;
+  margin-top: 16px;
+  padding: 10px 24px;
+  background: #0a66c2;
+  color: white;
+  text-decoration: none;
+  border-radius: 24px;
+  font-size: 14px;
+}
+
+.dashboard-link:hover {
+  background: #004182;
+}
+
 .spinner {
   width: 40px;
   height: 40px;

@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AuthService, LinkedInUserInfo } from '../services/auth.service';
 
 @Component({
   selector: 'app-callback',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './callback.html',
   styleUrl: './callback.css',
 })
