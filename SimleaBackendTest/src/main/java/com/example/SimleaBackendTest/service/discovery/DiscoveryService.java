@@ -71,14 +71,7 @@ public class DiscoveryService {
             for (SourceConnector connector : connectors) {
                 futures.add(executor.submit(() -> {
                     try {
-                        List<RawSearchResult> results;
-
-                        if (connector instanceof AccountConnector acc) {
-                            results = acc.searchProfiles(name, company, location);
-                        } else {
-                            results = connector.searchStructured(name, company, location);
-                        }
-
+                        List<RawSearchResult> results = connector.searchStructured(name, company, location);
                         allResults.addAll(results);
                     } catch (Exception e) {
                         log.warn("Connector '{}' failed for structured search: {}",

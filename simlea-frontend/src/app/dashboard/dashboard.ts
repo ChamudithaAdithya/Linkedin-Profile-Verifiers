@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { EnrichService, ResolvedProfile } from '../services/enrich.service';
-import { LinkedinAccountService } from '../services/linkedin-account.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,7 +8,7 @@ import { LinkedinAccountService } from '../services/linkedin-account.service';
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })
-export class Dashboard implements OnInit {
+export class Dashboard {
   name = '';
   company = '';
   location = '';
@@ -19,26 +18,7 @@ export class Dashboard implements OnInit {
   searchResults: ResolvedProfile[] = [];
   selectedProfile: ResolvedProfile | null = null;
 
-  showCookieConfig = false;
-  cookieInput = '';
-  accountValid = false;
-  accountName = '';
-  isSavingCookies = false;
-  cookieMessage = '';
-
-  constructor(
-    private enrichService: EnrichService,
-    private linkedinAccountService: LinkedinAccountService
-  ) {}
-
-  ngOnInit(): void {
-    this.linkedinAccountService.getStatus().subscribe({
-      next: (status) => {
-        this.accountValid = status.valid;
-        this.accountName = status.profileName || '';
-      },
-    });
-  }
+  constructor(private enrichService: EnrichService) {}
 
   onSearch(): void {
     if (!this.name.trim() && !this.company.trim() && !this.location.trim()) return;
@@ -58,31 +38,6 @@ export class Dashboard implements OnInit {
       },
       error: () => {
         this.isLoading = false;
-      },
-    });
-  }
-
-  saveCookies(): void {
-    if (!this.cookieInput.trim()) return;
-    this.isSavingCookies = true;
-    this.cookieMessage = '';
-
-    this.linkedinAccountService.submitCookies(this.cookieInput.trim()).subscribe({
-      next: (res) => {
-        this.isSavingCookies = false;
-        if (res.valid) {
-          this.accountValid = true;
-          this.accountName = res.profileName || 'LinkedIn User';
-          this.cookieMessage = 'Connected successfully!';
-          this.cookieInput = '';
-        } else {
-          this.accountValid = false;
-          this.cookieMessage = res.error || 'Cookies are invalid or expired.';
-        }
-      },
-      error: () => {
-        this.isSavingCookies = false;
-        this.cookieMessage = 'Failed to connect. Server error.';
       },
     });
   }

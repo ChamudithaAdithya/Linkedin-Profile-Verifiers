@@ -2,42 +2,7 @@
   <header class="search-header">
     <div class="header-top">
       <h2>SIMLEA Professional Finder</h2>
-      <div class="account-status">
-        @if (accountValid) {
-          <span class="status-badge connected" (click)="showCookieConfig = !showCookieConfig">
-            {{ accountName }}
-          </span>
-        } @else {
-          <span class="status-badge disconnected" (click)="showCookieConfig = !showCookieConfig">
-            No LinkedIn Account
-          </span>
-        }
-      </div>
     </div>
-
-    @if (showCookieConfig) {
-      <div class="cookie-config">
-        <p class="cookie-help">
-          Export cookies from linkedin.com (DevTools → Application → Cookies → Copy as JSON)
-          and paste below.
-        </p>
-        <textarea
-          [(ngModel)]="cookieInput"
-          placeholder='[{"name":"li_at","value":"...","domain":".linkedin.com","path":"/"}, ...]'
-          rows="4"
-        ></textarea>
-        <div class="cookie-actions">
-          <button class="cookie-save-btn" (click)="saveCookies()" [disabled]="isSavingCookies || !cookieInput.trim()">
-            {{ isSavingCookies ? 'Validating...' : 'Save & Validate' }}
-          </button>
-          @if (cookieMessage) {
-            <span class="cookie-message" [class.success]="accountValid" [class.error]="!accountValid && cookieMessage">
-              {{ cookieMessage }}
-            </span>
-          }
-        </div>
-      </div>
-    }
 
     <div class="search-bar">
       <div class="filter-row">
